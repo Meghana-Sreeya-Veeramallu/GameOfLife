@@ -3,6 +3,9 @@ package org.example.Entities;
 import org.example.Exceptions.InvalidRowsOrColumnsException;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
@@ -178,5 +181,36 @@ class GridTest {
         grid.update();
 
         assertFalse(grid.isAlive(1, 1));
+    }
+
+    // Tests for display() method
+    @Test
+    void testDisplay() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Grid grid = new Grid(3, 3);
+        String expectedOutput = "- - - \n- - - \n- - - \n\n".replaceAll("\\s+", " ");
+
+        grid.display();
+
+        String actualOutput = outContent.toString().replaceAll("\\s+", " ");
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void testDisplayWithSomeAliveCells() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Grid grid = new Grid(3, 3);
+        grid.setAlive(0, 0);
+        grid.setAlive(2, 1);
+        String expectedOutput = "* - - \n- - - \n- * - \n\n".replaceAll("\\s+", " ");
+
+        grid.display();
+
+        String actualOutput = outContent.toString().replaceAll("\\s+", " ");
+
+        assertEquals(expectedOutput, actualOutput);
     }
 }
