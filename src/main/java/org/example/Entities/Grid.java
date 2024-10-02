@@ -8,9 +8,9 @@ public class Grid {
     private final int rows;
     private final int cols;
 
-    public Grid(int rows, int cols) {
-        if (rows <= 0 || cols <= 0) {
-            throw new InvalidRowsOrColumnsException("Rows and columns should be greater than 0");
+    public Grid(int rows, int cols) throws InvalidRowsOrColumnsException {
+        if (rows <= 2 || cols <= 2) {
+            throw new InvalidRowsOrColumnsException("Rows and columns should be greater than 2");
         }
         this.rows = rows;
         this.cols = cols;
@@ -22,14 +22,14 @@ public class Grid {
         }
     }
 
-    public boolean isAlive(int row, int col) {
+    public boolean isAlive(int row, int col) throws InvalidRowsOrColumnsException{
         if (!isInBounds(row, col)) {
             throw new InvalidRowsOrColumnsException("Row and column must be within grid bounds");
         }
         return cells[row][col].isAlive();
     }
 
-    public void setAlive(int row, int col) {
+    public void setAlive(int row, int col) throws InvalidRowsOrColumnsException{
         if (!isInBounds(row, col)) {
             throw new InvalidRowsOrColumnsException("Row and column must be within grid bounds");
         }
@@ -44,18 +44,8 @@ public class Grid {
                 int aliveNeighbors = countAliveNeighbors(i, j);
                 newCells[i][j] = new Cell();
 
-                if (cells[i][j].isAlive()) {
-                    if (aliveNeighbors < 2 || aliveNeighbors >= 4) {
-                        newCells[i][j].setDead();
-                    } else {
-                        newCells[i][j].setAlive();
-                    }
-                } else {
-                    if (aliveNeighbors == 3) {
-                        newCells[i][j].setAlive();
-                    } else {
-                        newCells[i][j].setDead();
-                    }
+                if (shouldBeAlive(cells[i][j], aliveNeighbors)) {
+                    newCells[i][j].setAlive();
                 }
             }
         }
@@ -78,6 +68,10 @@ public class Grid {
             }
         }
         return count;
+    }
+
+    private boolean shouldBeAlive(Cell cell, int aliveNeighbors) {
+        return (cell.isAlive() && (aliveNeighbors == 2 || aliveNeighbors == 3)) || (!cell.isAlive() && aliveNeighbors == 3);
     }
 
     private boolean isInBounds(int row, int col) {

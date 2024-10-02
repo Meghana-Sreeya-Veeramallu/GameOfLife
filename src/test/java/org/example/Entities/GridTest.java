@@ -48,28 +48,38 @@ class GridTest {
 
     @Test
     void testNewGridCellsAreDead() {
-        Grid grid = new Grid(2, 2);
+        Grid grid = new Grid(3, 3);
         assertFalse(grid.isAlive(0, 0));
         assertFalse(grid.isAlive(0, 1));
+        assertFalse(grid.isAlive(0, 2));
         assertFalse(grid.isAlive(1, 0));
         assertFalse(grid.isAlive(1, 1));
+        assertFalse(grid.isAlive(1, 2));
+        assertFalse(grid.isAlive(2, 0));
+        assertFalse(grid.isAlive(2, 1));
+        assertFalse(grid.isAlive(2, 2));
     }
 
     @Test
     void testSetAliveMakesCellAlive() {
-        Grid grid = new Grid(2, 2);
+        Grid grid = new Grid(3, 3);
         grid.setAlive(0, 0);
         assertTrue(grid.isAlive(0, 0));
     }
 
     @Test
     void testSetAliveDoesNotAffectOtherCells() {
-        Grid grid = new Grid(2, 2);
+        Grid grid = new Grid(3, 3);
         grid.setAlive(0, 0);
         assertTrue(grid.isAlive(0, 0));
         assertFalse(grid.isAlive(0, 1));
+        assertFalse(grid.isAlive(0, 2));
         assertFalse(grid.isAlive(1, 0));
         assertFalse(grid.isAlive(1, 1));
+        assertFalse(grid.isAlive(1, 2));
+        assertFalse(grid.isAlive(2, 0));
+        assertFalse(grid.isAlive(2, 1));
+        assertFalse(grid.isAlive(2, 2));
     }
 
     // Tests for update() method
