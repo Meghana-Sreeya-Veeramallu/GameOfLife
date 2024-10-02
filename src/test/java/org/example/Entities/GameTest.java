@@ -1,6 +1,5 @@
 package org.example.Entities;
 
-import org.example.Exceptions.InvalidIterationNumberException;
 import org.example.Exceptions.InvalidRowsOrColumnsException;
 import org.example.Exceptions.InvalidSeedPercentageException;
 import org.junit.jupiter.api.Test;
@@ -31,15 +30,8 @@ public class GameTest {
     }
 
     @Test
-    void testInvalidIterations() {
-        Game game = new Game(5, 5, 50);
-        assertThrows(InvalidIterationNumberException.class, () -> {game.run(0);});
-        assertThrows(InvalidIterationNumberException.class, () -> {game.run(-5);});
-    }
-
-    @Test
     void testValidGameRun() {
         Game game = new Game(5, 5, 20);
-        assertDoesNotThrow(() -> game.run(3));
+        assertDoesNotThrow(game::run);
     }
 }

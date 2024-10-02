@@ -1,7 +1,5 @@
 package org.example.Entities;
 
-import org.example.Exceptions.AllCellsDeadException;
-import org.example.Exceptions.InvalidIterationNumberException;
 import org.example.Exceptions.InvalidRowsOrColumnsException;
 import org.example.Exceptions.InvalidSeedPercentageException;
 
@@ -18,6 +16,9 @@ public class Game {
         }
         this.seedPercentage = seedPercentage;
         initializeCells(rows, cols);
+
+        System.out.println("Initial State:");
+        grid.display();
     }
 
     private void initializeCells(int rows, int cols) {
@@ -36,20 +37,8 @@ public class Game {
         }
     }
 
-    public void run(int iterations) throws InvalidIterationNumberException {
-        if (iterations <= 0) {
-            throw new InvalidIterationNumberException("Iterations must be positive");
-        }
-        for (int i = 0; i < iterations; i++) {
-            System.out.println("Iteration " + (i + 1));
-            grid.display();
-            try {
-                grid.update();
-            }
-            catch (AllCellsDeadException e) {
-                System.out.println("All cells dead, cannot continue");
-                break;
-            }
-        }
+    public void run() {
+        grid.update();
+        grid.display();
     }
 }
