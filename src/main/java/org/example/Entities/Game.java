@@ -1,5 +1,6 @@
 package org.example.Entities;
 
+import org.example.Exceptions.AllCellsDeadException;
 import org.example.Exceptions.InvalidIterationNumberException;
 import org.example.Exceptions.InvalidRowsOrColumnsException;
 import org.example.Exceptions.InvalidSeedPercentageException;
@@ -42,7 +43,13 @@ public class Game {
         for (int i = 0; i < iterations; i++) {
             System.out.println("Iteration " + (i + 1));
             grid.display();
-            grid.update();
+            try {
+                grid.update();
+            }
+            catch (AllCellsDeadException e) {
+                System.out.println("All cells dead, cannot continue");
+                break;
+            }
         }
     }
 }

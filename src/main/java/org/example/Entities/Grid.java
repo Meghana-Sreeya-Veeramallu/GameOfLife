@@ -1,5 +1,6 @@
 package org.example.Entities;
 
+import org.example.Exceptions.AllCellsDeadException;
 import org.example.Exceptions.InvalidRowsOrColumnsException;
 
 public class Grid {
@@ -37,6 +38,9 @@ public class Grid {
     }
 
     public void update() {
+        if (!hasAliveCells()) {
+            throw new AllCellsDeadException("All cells are dead, cannot continue");
+        }
         Cell[][] newCells = new Cell[rows][cols];
 
         for (int i = 0; i < rows; i++) {
@@ -55,6 +59,17 @@ public class Grid {
                 cells[i][j] = newCells[i][j];
             }
         }
+    }
+
+    private boolean hasAliveCells() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (cells[i][j].isAlive()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private int countAliveNeighbors(int row, int col) {
@@ -81,7 +96,7 @@ public class Grid {
     public void display() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                System.out.print(cells[i][j].isAlive() ? "O " : ". ");
+                System.out.print(cells[i][j].isAlive() ? "* " : "- ");
             }
             System.out.println();
         }
