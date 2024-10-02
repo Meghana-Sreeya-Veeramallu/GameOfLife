@@ -14,15 +14,7 @@ public class Cell {
         return this.state == State.ALIVE;
     }
 
-    public boolean isDead() {
-        return this.state == State.DEAD;
-    }
-
     public void setAlive() {
         this.state = State.ALIVE;
-    }
-
-    public void setDead(){
-        this.state = State.DEAD;
     }
 }

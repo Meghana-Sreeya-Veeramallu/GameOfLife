@@ -8,7 +8,6 @@ class CellTest {
     @Test
     public void testCellDefaultStateIsDead() {
         Cell cell = new Cell();
-        assertTrue(cell.isDead());
         assertFalse(cell.isAlive());
     }
 
@@ -17,15 +16,5 @@ class CellTest {
         Cell cell = new Cell();
         cell.setAlive();
         assertTrue(cell.isAlive());
-        assertFalse(cell.isDead());
-    }
-
-    @Test
-    public void testSetDead() {
-        Cell cell = new Cell();
-        cell.setAlive();
-        cell.setDead();
-        assertTrue(cell.isDead());
-        assertFalse(cell.isAlive());
     }
 }
