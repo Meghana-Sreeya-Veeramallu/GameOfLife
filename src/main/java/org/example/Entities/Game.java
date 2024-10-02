@@ -16,9 +16,6 @@ public class Game {
         }
         this.seedPercentage = seedPercentage;
         initializeCells(rows, cols);
-
-        System.out.println("Initial State:");
-        grid.display();
     }
 
     private void initializeCells(int rows, int cols) {
@@ -35,6 +32,10 @@ public class Game {
                 aliveCellsCount--;
             }
         }
+    }
+
+    public void display() {
+        grid.display();
     }
 
     public void run() {

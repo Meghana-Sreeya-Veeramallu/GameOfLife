@@ -23,10 +23,14 @@ public class Main {
 
         try {
             Game game = new Game(rows, cols, seedPercentage);
+
+            System.out.println("Initial State:");
+            game.display();
+
             boolean continueGame = true;
+
             while (continueGame) {
                 System.out.println("Press Enter to continue or 'q' to quit.");
-
                 String userResponse = scanner.nextLine();
 
                 if (userResponse.equalsIgnoreCase("q")) {
