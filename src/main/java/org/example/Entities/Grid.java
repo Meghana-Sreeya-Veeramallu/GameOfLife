@@ -23,10 +23,16 @@ public class Grid {
     }
 
     public boolean isAlive(int row, int col) {
+        if (!isInBounds(row, col)) {
+            throw new InvalidRowsOrColumnsException("Row and column must be within grid bounds");
+        }
         return cells[row][col].isAlive();
     }
 
     public void setAlive(int row, int col) {
+        if (!isInBounds(row, col)) {
+            throw new InvalidRowsOrColumnsException("Row and column must be within grid bounds");
+        }
         cells[row][col].setAlive();
     }
 

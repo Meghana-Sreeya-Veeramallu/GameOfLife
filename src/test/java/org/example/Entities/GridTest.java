@@ -29,6 +29,24 @@ class GridTest {
 
     // Tests for isAlive() and setAlive() methods
     @Test
+    void testIsAliveThrowsExceptionForOutOfBounds() {
+        Grid grid = new Grid(3, 3);
+
+        assertThrows(InvalidRowsOrColumnsException.class, () -> {grid.isAlive(-1, 0);});
+        assertThrows(InvalidRowsOrColumnsException.class, () -> {grid.isAlive(0, -1);});
+        assertThrows(InvalidRowsOrColumnsException.class, () -> {grid.isAlive(3, 3);});
+    }
+
+    @Test
+    void testSetAliveThrowsExceptionForOutOfBounds() {
+        Grid grid = new Grid(3, 3);
+
+        assertThrows(InvalidRowsOrColumnsException.class, () -> {grid.setAlive(-1, 0);});
+        assertThrows(InvalidRowsOrColumnsException.class, () -> {grid.setAlive(0, -1);});
+        assertThrows(InvalidRowsOrColumnsException.class, () -> {grid.setAlive(3, 3);});
+    }
+
+    @Test
     void testNewGridCellsAreDead() {
         Grid grid = new Grid(2, 2);
         assertFalse(grid.isAlive(0, 0));
