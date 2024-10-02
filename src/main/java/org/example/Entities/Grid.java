@@ -77,4 +77,14 @@ public class Grid {
     private boolean isInBounds(int row, int col) {
         return row >= 0 && row < rows && col >= 0 && col < cols;
     }
+
+    public void display() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(cells[i][j].isAlive() ? "O " : ". ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
 }
