@@ -41,22 +41,17 @@ public class Grid {
         if (!hasAliveCells()) {
             throw new AllCellsDeadException("All cells are dead, cannot continue");
         }
-        Cell[][] newCells = new Cell[rows][cols];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 int aliveNeighbors = countAliveNeighbors(i, j);
-                newCells[i][j] = new Cell();
-
-                if (shouldBeAlive(cells[i][j], aliveNeighbors)) {
-                    newCells[i][j].setAlive();
-                }
+                cells[i][j].determineNextState(aliveNeighbors);
             }
         }
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                cells[i][j] = newCells[i][j];
+                cells[i][j].updateState();
             }
         }
     }
@@ -83,10 +78,6 @@ public class Grid {
             }
         }
         return count;
-    }
-
-    private boolean shouldBeAlive(Cell cell, int aliveNeighbors) {
-        return (cell.isAlive() && (aliveNeighbors == 2 || aliveNeighbors == 3)) || (!cell.isAlive() && aliveNeighbors == 3);
     }
 
     private boolean isInBounds(int row, int col) {
